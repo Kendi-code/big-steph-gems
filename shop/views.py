@@ -51,3 +51,9 @@ def admin_dashboard(request):
         return redirect('admin_dashboard')
 
     return render(request, 'shop/dashboard.html', {'products': products})
+
+def about_view(request):
+    return render(request, 'shop/about.html')
+
+def contact_view(request):
+    return render(request, 'shop/contact.html')

@@ -184,5 +184,3 @@ DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Redirect unauthenticated users to the built-in admin login page
-LOGIN_URL = '/admin/login/'
