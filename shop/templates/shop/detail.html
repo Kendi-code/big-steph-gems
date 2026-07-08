@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} | BIG STEPH GEMS</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: #fff; margin: 0; padding: 40px 20px; }
+        .container { max-width: 900px; margin: 60px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        img { width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); object-fit: cover; max-height: 500px;}
+        .details-panel { display: flex; flex-direction: column; justify-content: center; }
+        h1 { color: #d4af37; margin: 0 0 10px 0; font-size: 2.5rem; }
+        .price { font-size: 1.8rem; font-weight: bold; color: #fff; margin-bottom: 20px; }
+        .meta { color: #888; font-size: 0.95rem; margin-bottom: 20px; }
+        p { line-height: 1.6; color: #ccc; }
+        .btn-back { display: inline-block; margin-top: 30px; color: #888; text-decoration: none; }
+        .btn-back:hover { color: #fff; }
+        .btn-contact { background: #d4af37; color:#121212; text-decoration:none; padding:15px; font-weight:bold; border-radius:4px; text-align:center; margin-top:30px; transition:0.3s; }
+        .btn-contact:hover { background: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </div>
+        <div class="details-panel">
+            <h1>{{ product.name }}</h1>
+            <div class="price">${{ product.price }}</div>
+            
+            <div class="meta">
+                <span>Available Units: <strong>{{ product.quantity_in_stock }}</strong></span>
+            </div>
+
+            <p>{{ product.details }}</p>
+
+            <a href="https://instagram.com/{{ product.dealer_handle|cut:'@' }}" target="_blank" class="btn-contact">
+                Contact Dealer Via {{ product.dealer_handle }} to Style You
+            </a>
+
+            <a href="{% url 'home' %}#shop" class="btn-back">← Back to Collection</a>
+        </div>
+    </div>
+
+</body>
+</html>
