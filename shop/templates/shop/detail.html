@@ -3,45 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }} | BIG STEPH GEMS</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #121212; color: #fff; margin: 0; padding: 40px 20px; }
-        .container { max-width: 900px; margin: 60px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        img { width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); object-fit: cover; max-height: 500px;}
-        .details-panel { display: flex; flex-direction: column; justify-content: center; }
-        h1 { color: #d4af37; margin: 0 0 10px 0; font-size: 2.5rem; }
-        .price { font-size: 1.8rem; font-weight: bold; color: #fff; margin-bottom: 20px; }
-        .meta { color: #888; font-size: 0.95rem; margin-bottom: 20px; }
-        p { line-height: 1.6; color: #ccc; }
-        .btn-back { display: inline-block; margin-top: 30px; color: #888; text-decoration: none; }
-        .btn-back:hover { color: #fff; }
-        .btn-contact { background: #d4af37; color:#121212; text-decoration:none; padding:15px; font-weight:bold; border-radius:4px; text-align:center; margin-top:30px; transition:0.3s; }
-        .btn-contact:hover { background: #fff; }
-    </style>
-</head>
-<body>
+    <title>BIG STEPH GEMS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <div class="container">
-        <div>
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-neutral-900 text-neutral-100 font-sans antialiased">
+
+    <nav class="bg-black/90 backdrop-blur-md sticky top-0 z-50 border-b border-yellow-700/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-2xl font-serif font-bold text-yellow-500 tracking-widest uppercase">
+                        Big Steph Gems
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-300 hover:text-yellow-500 transition duration-300 uppercase text-sm tracking-wider">Collection</a>
+                    <a href="#" class="text-gray-300 hover:text-yellow-500 transition duration-300 uppercase text-sm tracking-wider">About</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-yellow-500 hover:text-yellow-400 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="details-panel">
-            <h1>{{ product.name }}</h1>
-            <div class="price">${{ product.price }}</div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-900 border-b border-yellow-700/30">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="block px-3 py-2 text-gray-300 hover:text-yellow-500 uppercase tracking-wider text-sm">Collection</a>
+                <a href="#" class="block px-3 py-2 text-gray-300 hover:text-yellow-500 uppercase tracking-wider text-sm">About</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col md:flex-row gap-12">
             
-            <div class="meta">
-                <span>Available Units: <strong>{{ product.quantity_in_stock }}</strong></span>
+            <div class="md:w-1/2">
+                <div class="rounded-lg overflow-hidden shadow-2xl border border-neutral-800">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-auto object-cover">
+                    {% endif %}
+                </div>
             </div>
 
-            <p>{{ product.details }}</p>
+            <div class="md:w-1/2 flex flex-col justify-center">
+                <h1 class="text-4xl font-serif text-yellow-500 mb-4">{{ product.name }}</h1>
+                <p class="text-3xl text-gray-200 mb-6 font-light">₦{{ product.price }}</p>
+                
+                <div class="prose prose-invert mb-10 text-gray-400 font-light leading-relaxed">
+                    {{ product.details|linebreaks }}
+                </div>
 
-            <a href="https://instagram.com/{{ product.dealer_handle|cut:'@' }}" target="_blank" class="btn-contact">
-                Contact Dealer Via {{ product.dealer_handle }} to Style You
-            </a>
+                <div class="space-y-4">
+                    <a href="https://wa.me/2348148543773?text=Hello%20Big%20Steph%20Gems!%20I%20am%20interested%20in%20purchasing%20the%20*{{ product.name|urlencode }}*%20for%20%E2%82%A6{{ product.price }}." 
+                       target="_blank" 
+                       class="w-full flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe57] text-white px-8 py-4 rounded font-bold uppercase tracking-wider transition duration-300 shadow-lg shadow-green-900/50">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        Purchase via WhatsApp
+                    </a>
 
-            <a href="{% url 'home' %}#shop" class="btn-back">← Back to Collection</a>
+                    <a href="mailto:contact@bigstephgems.com?subject=Purchase Inquiry: {{ product.name }}" 
+                       class="w-full flex items-center justify-center gap-3 border border-gray-600 hover:border-gray-400 text-gray-300 hover:text-white px-8 py-4 rounded uppercase tracking-wider transition duration-300">
+                        <i class="fa-solid fa-envelope text-xl"></i>
+                        Inquire via Email
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 </html>

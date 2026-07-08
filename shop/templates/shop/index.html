@@ -4,86 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIG STEPH GEMS</title>
-    <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #121212; color: #eaeaea; margin: 0; padding: 0; }
-        header { position: fixed; width: 100%; top: 0; background: rgba(18, 18, 18, 0.95); border-bottom: 1px solid #2a2a2a; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 20px; }
-        nav a { color: #eaeaea; text-decoration: none; margin: 0 15px; font-weight: 500; letter-spacing: 1px; }
-        nav a:hover { color: #d4af37; } /* Premium Gold Highlight */
-        .brand-logo { font-size: 1.5rem; font-weight: bold; color: #d4af37; letter-spacing: 2px; }
-        section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; min-height: 70vh; }
-        #home { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 90vh; }
-        #home h1 { font-size: 3.5rem; margin-bottom: 10px; letter-spacing: 3px; }
-        .btn-shop { background: #d4af37; color: #121212; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; transition: 0.3s; }
-        .btn-shop:hover { background: #fff; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { background: #1c1c1c; border: 1px solid #2a2a2a; border-radius: 8px; overflow: hidden; transition: transform 0.3s; text-align: center; padding-bottom: 20px;}
-        .card:hover { transform: translateY(-5px); border-color: #d4af37; }
-        .card img { width: 100%; height: 320px; object-fit: cover; }
-        .card h3 { margin: 15px 0 5px 0; font-size: 1.25rem; }
-        .card p { color: #d4af37; font-weight: bold; margin: 0; }
-        .about-box { border-left: 3px solid #d4af37; padding-left: 20px; max-width: 600px; margin: 40px auto; font-size: 1.2rem; line-height: 1.8; }
-        footer { background: #0a0a0a; text-align: center; padding: 30px; border-top: 1px solid #1c1c1c; font-size: 0.9rem; color: #666; }
-    </style>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-neutral-900 text-neutral-100 font-sans antialiased">
 
-    <header>
-        <nav>
-            <div class="brand-logo">BIG STEPH GEMS</div>
-            <div>
-                <a href="#home">Home</a>
-                <a href="#shop">Shop</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+    <nav class="bg-black/90 backdrop-blur-md sticky top-0 z-50 border-b border-yellow-700/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-2xl font-serif font-bold text-yellow-500 tracking-widest uppercase">
+                        Big Steph Gems
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-300 hover:text-yellow-500 transition duration-300 uppercase text-sm tracking-wider">Collection</a>
+                    <a href="#" class="text-gray-300 hover:text-yellow-500 transition duration-300 uppercase text-sm tracking-wider">About</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-yellow-500 hover:text-yellow-400 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
-        </nav>
-    </header>
+        </div>
 
-    <section id="home">
-        <h1>BIG STEPH GEMS</h1>
-        <p style="color: #aaa; font-style: italic;">Curated jewelry & accessories for everyday style.</p>
-        <a href="#shop" class="btn-shop">Explore Collection</a>
-    </section>
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-900 border-b border-yellow-700/30">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="block px-3 py-2 text-gray-300 hover:text-yellow-500 uppercase tracking-wider text-sm">Collection</a>
+                <a href="#" class="block px-3 py-2 text-gray-300 hover:text-yellow-500 uppercase tracking-wider text-sm">About</a>
+            </div>
+        </div>
+    </nav>
 
-    <section id="shop">
-        <h2 style="text-align: center; letter-spacing: 1px;">THE COLLECTION</h2>
-        <div class="grid">
+    <div class="py-20 text-center">
+        <h1 class="text-5xl font-serif text-yellow-500 mb-4">The Imperial Collection</h1>
+        <p class="text-gray-400 max-w-2xl mx-auto font-light tracking-wide">Discover our exclusive range of handcrafted, premium jewelry.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            
             {% for product in products %}
-            <div class="card" onclick="location.href='{% url 'product_detail' product.pk %}'" style="cursor: pointer;">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                <h3>{{ product.name }}</h3>
-                <p>${{ product.price }}</p>
-                <span style="font-size: 0.8rem; color: #777;">Stock: {{ product.quantity_in_stock }} left</span>
+            <div class="group bg-neutral-800 border border-neutral-700/50 rounded-lg overflow-hidden hover:-translate-y-2 transition duration-500 hover:shadow-[0_10px_40px_-15px_rgba(234,179,8,0.3)]">
+                <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-neutral-700 xl:aspect-w-7 xl:aspect-h-8">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="h-80 w-full object-cover object-center group-hover:scale-105 transition duration-700">
+                    {% else %}
+                        <div class="h-80 w-full flex items-center justify-center text-gray-500">No Image</div>
+                    {% endif %}
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-serif text-gray-100 mb-2">{{ product.name }}</h3>
+                    <p class="text-yellow-500 font-semibold text-lg mb-6">₦{{ product.price }}</p>
+                    <a href="{% url 'product_detail' product.id %}" class="inline-block border border-yellow-500 text-yellow-500 px-6 py-2 uppercase text-xs tracking-widest hover:bg-yellow-500 hover:text-black transition duration-300">View Details</a>
+                </div>
             </div>
-            {% empty %}
-            <p style="text-align: center; grid-column: 1/-1; color: #777;">No custom pieces listed in the boutique catalog yet.</p>
             {% endfor %}
+
         </div>
-    </section>
-
-    <section id="about" style="text-align: center;">
-        <h2>ABOUT THE BRAND</h2>
-        <div class="about-box">
-            <p>Welcome to <strong>Big Steph Gems</strong> 🛍️</p>
-            <p>We hand-select and curate pristine jewelry items engineered to boost your everyday confidence and style footprint.</p>
-            <p style="color: #d4af37; font-weight: 500;">Send us a dm and let Steph style you.</p>
-        </div>
-    </section>
-
-    <section id="contact" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
-        <h2>CONNECT WITH US</h2>
-        <p style="color: #aaa; max-width: 500px; margin: 0 auto 30px auto;">Have any sizing questions, custom fitting rules, or ready to place a curation order? Get in touch directly.</p>
-        <div>
-            <a href="https://instagram.com/" target="_blank" class="btn-shop" style="margin: 10px;">Instagram Direct</a>
-            <a href="mailto:hello@bigstephgems.com" class="btn-shop" style="background:#fff; color:#121212; margin: 10px;">Email Curation</a>
-        </div>
-    </section>
-
-    <footer>
-        &copy; 2026 BIG STEPH GEMS. Curated Elegance. All Rights Reserved.
-    </footer>
-
+    </div>
 </body>
 </html>
