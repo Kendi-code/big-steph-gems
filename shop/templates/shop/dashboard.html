@@ -59,14 +59,9 @@
                         <input type="number" name="price" id="form-price" step="0.01" required placeholder="50000" 
                                class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition">
                     </div>
-                    <div>
+                    <div class="md:col-span-2">
                         <label for="id_qty" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Quantity in Stock</label>
                         <input type="number" name="quantity_in_stock" id="form-qty" required placeholder="1" 
-                               class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition">
-                    </div>
-                    <div>
-                        <label for="id_handle" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Dealer Handle / Target Link</label>
-                        <input type="text" name="dealer_handle" id="form-handle" required placeholder="e.g., @big_steph" 
                                class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition">
                     </div>
                 </div>
@@ -107,7 +102,6 @@
                         <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Name</th>
                         <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Price</th>
                         <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Stock Level</th>
-                        <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Dealer Link</th>
                         <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Action</th>
                     </tr>
                 </thead>
@@ -124,9 +118,8 @@
                         <td class="py-4 px-6 font-medium text-white">{{ product.name }}</td>
                         <td class="py-4 px-6 text-yellow-500 font-semibold">₦{{ product.price }}</td>
                         <td class="py-4 px-6 text-neutral-300">{{ product.quantity_in_stock }} units</td>
-                        <td class="py-4 px-6 text-neutral-500 font-mono text-sm">{{ product.dealer_handle }}</td>
                         <td class="py-4 px-6">
-                            <button onclick="populateEditForm('{{ product.pk }}', '{{ product.name|escapejs }}', '{{ product.price }}', '{{ product.quantity_in_stock }}', '{{ product.dealer_handle|escapejs }}', '{{ product.details|escapejs }}')" 
+                            <button onclick="populateEditForm('{{ product.pk }}', '{{ product.name|escapejs }}', '{{ product.price }}', '{{ product.quantity_in_stock }}', '{{ product.details|escapejs }}')" 
                                     class="border border-neutral-600 text-neutral-300 hover:text-yellow-500 hover:border-yellow-500 px-4 py-2 rounded text-xs uppercase tracking-wider transition duration-200">
                                 Edit Piece
                             </button>
@@ -134,7 +127,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="6" class="py-12 text-center text-neutral-500 font-light italic">
+                        <td colspan="5" class="py-12 text-center text-neutral-500 font-light italic">
                             No items currently available in the database. Use the form above to populate your inventory.
                         </td>
                     </tr>
@@ -145,7 +138,7 @@
     </div>
 
     <script>
-        function populateEditForm(id, name, price, qty, handle, details) {
+        function populateEditForm(id, name, price, qty, details) {
             document.getElementById('form-title').innerText = "Modify Jewelry Details: " + name;
             document.getElementById('btn-submit-text').innerText = "Update Product";
             
@@ -159,11 +152,11 @@
             hint.classList.remove('hidden');
             hint.classList.add('block');
 
+            // Populate fields
             document.getElementById('form-product-id').value = id;
             document.getElementById('form-name').value = name;
             document.getElementById('form-price').value = price;
             document.getElementById('form-qty').value = qty;
-            document.getElementById('form-handle').value = handle;
             document.getElementById('form-details').value = details;
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
