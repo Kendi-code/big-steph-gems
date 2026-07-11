@@ -12,5 +12,6 @@ urlpatterns = [
     # Secure, temporary route to build your new tables on Supabase
     path('build-new-db/', views.run_jewelry_migration, name='build_new_db'),
     path("accounts/login/", views.login_view, name="login"),
+    path('delete-product/<int:pk>/', views.delete_product, name='delete_product'),
 ]
 

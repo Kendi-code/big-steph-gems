@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Product
 from django.http import HttpResponse
 from django.core.management import call_command
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 # TEMPORARY BACKDOOR MIGRATION VIEW
 def run_jewelry_migration(request):
@@ -34,7 +36,7 @@ def home_view(request):
     return render(request, 'shop/index.html', context)
 
 def product_detail(request, pk):
-    """Dynamic redirection target displaying fine-tuned jewelry details and explicit dealer connection points."""
+    """Dynamic redirection target displaying fine-tuned jewelry details."""
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'shop/detail.html', {'product': product})
 
@@ -52,7 +54,6 @@ def admin_dashboard(request):
         price = request.POST.get('price')
         qty = request.POST.get('quantity_in_stock')
         details = request.POST.get('details')
-        dealer_handle = request.POST.get('dealer_handle')
         image = request.FILES.get('image')
 
         if product_id:  # Edit/Update action
@@ -61,14 +62,16 @@ def admin_dashboard(request):
             product.price = price
             product.quantity_in_stock = qty
             product.details = details
-            product.dealer_handle = dealer_handle
             if image:
                 product.image = image
             product.save()
         else:  # Create action
             Product.objects.create(
-                name=name, price=price, quantity_in_stock=qty, 
-                details=details, dealer_handle=dealer_handle, image=image
+                name=name, 
+                price=price, 
+                quantity_in_stock=qty, 
+                details=details, 
+                image=image
             )
         return redirect('admin_dashboard')
 
@@ -79,9 +82,6 @@ def about_view(request):
 
 def contact_view(request):
     return render(request, 'shop/contact.html')
-
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
 
 def login_view(request):
     if request.method == "POST":
@@ -101,3 +101,11 @@ def login_view(request):
             messages.error(request, "Invalid username or password.")
 
     return render(request, "shop/login.html")
+
+@login_required
+def delete_product(request, pk):
+    """Safely deletes a product from the database."""
+    if request.method == 'POST':
+        product = get_object_or_404(Product, pk=pk)
+        product.delete()
+    return redirect('admin_dashboard')

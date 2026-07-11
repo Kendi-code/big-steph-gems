@@ -7,10 +7,6 @@ class Product(models.Model):
     details = models.TextField()
     # Fixed typo: changed 'upload_with' to 'upload_to'
     image = models.ImageField(upload_to='products/') 
-    dealer_handle = models.CharField(
-        max_length=150, 
-        help_text="Enter Instagram username or full WhatsApp link (e.g., @big_steph or https://wa.me/xxx)"
-    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
