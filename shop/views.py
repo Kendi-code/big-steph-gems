@@ -1,12 +1,31 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Product
+from django.http import HttpResponse
+from django.core.management import call_command
 
-# ... rest of your view logic remains exactly the same ...
+# TEMPORARY BACKDOOR MIGRATION VIEW
+def run_jewelry_migration(request):
+    """
+    Temporary view to programmatically run migrations 
+    on the brand new Big Steph Gems database.
+    """
+    try:
+        call_command('migrate', interactive=False)
+        return HttpResponse("<h1>Success! Big Steph Gems database tables built perfectly.</h1>")
+    except Exception as e:
+        return HttpResponse(f"<h1>Migration Failed</h1><p>{str(e)}</p>")
 
 def home_view(request):
     """Renders the absolute single-page interface encompassing home, about, shop grid and contact."""
-    products = Product.objects.all().order_by('-created_at')
+    try:
+        products = Product.objects.all().order_by('-created_at')
+        # Force evaluation to see if the table exists yet
+        list(products[:1]) 
+    except Exception:
+        # Safe fallback text if the database hasn't been migrated yet
+        return HttpResponse("<h1>Big Steph Gems Setup Mode</h1><p>Please type <strong>/build-new-db/</strong> at the end of your browser link to set up your tables.</p>")
+        
     context = {
         'products': products,
         'brand_name': "BIG STEPH GEMS",
@@ -22,8 +41,11 @@ def product_detail(request, pk):
 @login_required
 def admin_dashboard(request):
     """Custom dashboard supporting simple workflows for uploading and modifying inventory."""
-    products = Product.objects.all().order_by('-created_at')
-    
+    try:
+        products = Product.objects.all().order_by('-created_at')
+    except Exception:
+        return HttpResponse("Dashboard locked until migrations are applied.")
+        
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
         name = request.POST.get('name')

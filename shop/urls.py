@@ -8,4 +8,7 @@ urlpatterns = [
 
     path('about/', views.about_view, name='about'),
     path('contact/', views.contact_view, name='contact'),
+    
+    # Secure, temporary route to build your new tables on Supabase
+    path('build-new-db/', views.run_jewelry_migration, name='build_new_db'),
 ]
