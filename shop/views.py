@@ -79,3 +79,25 @@ def about_view(request):
 
 def contact_view(request):
     return render(request, 'shop/contact.html')
+
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+
+        if user:
+            login(request, user)
+            return redirect("admin_dashboard")
+        else:
+            messages.error(request, "Invalid username or password.")
+
+    return render(request, "shop/login.html")
