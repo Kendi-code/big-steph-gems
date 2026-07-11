@@ -183,5 +183,3 @@ DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 # =============================================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-LOGIN_URL = '/admin/login/'
