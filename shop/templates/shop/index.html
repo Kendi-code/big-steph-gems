@@ -9,6 +9,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
         {% for product in products %}
+        <!-- 3D Card Effect: Dark glass, subtle border, gold hover glow -->
         <div class="group bg-neutral-900/60 backdrop-blur-md border border-white/5 rounded-xl overflow-hidden hover:-translate-y-2 transition duration-500 hover:shadow-[0_20px_40px_rgba(234,179,8,0.1)]">
             <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-neutral-950 xl:aspect-w-7 xl:aspect-h-8">
                 {% if product.image %}
@@ -19,7 +20,11 @@
             </div>
             <div class="p-8 text-center">
                 <h3 class="text-xl font-serif text-white mb-2 tracking-wide">{{ product.name }}</h3>
-                <p class="text-yellow-500 font-medium text-lg mb-6">₦{{ product.price }}</p>
+                <p class="text-yellow-500 font-medium text-lg mb-2">₦{{ product.price }}</p>
+                
+                <!-- NEW QUANTITY INDICATOR -->
+                <p class="text-xs text-neutral-500 uppercase tracking-widest mb-6">Stock: {{ product.quantity_in_stock }}</p>
+                
                 <a href="{% url 'product_detail' product.id %}" class="inline-block border border-yellow-500/50 text-yellow-500 px-8 py-3 uppercase text-xs font-semibold tracking-widest hover:bg-yellow-500 hover:text-black transition duration-300">View Details</a>
             </div>
         </div>

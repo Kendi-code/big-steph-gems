@@ -14,7 +14,15 @@
 
         <div class="md:w-1/2 flex flex-col justify-center">
             <h1 class="text-4xl md:text-5xl font-serif text-white mb-4 tracking-wide">{{ product.name }}</h1>
-            <p class="text-3xl text-yellow-500 mb-8 font-medium">₦{{ product.price }}</p>
+            
+            <p class="text-3xl text-yellow-500 mb-4 font-medium">₦{{ product.price }}</p>
+            
+            <!-- NEW QUANTITY INDICATOR -->
+            <div class="mb-8">
+                <span class="inline-block border border-neutral-700 text-neutral-400 px-4 py-1 rounded-full text-xs uppercase tracking-widest">
+                    Available Stock: {{ product.quantity_in_stock }}
+                </span>
+            </div>
             
             <div class="prose prose-invert mb-12 text-neutral-400 font-light leading-relaxed">
                 {{ product.details|linebreaks }}
