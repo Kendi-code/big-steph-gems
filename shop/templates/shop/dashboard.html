@@ -4,123 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boutique Management Panel | BIG STEPH GEMS</title>
-    <style>
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #121212; color: #eaeaea; margin: 0; padding: 40px 20px; }
-        .dashboard-container { max-width: 1100px; margin: 0 auto; }
-        h1, h2 { color: #d4af37; letter-spacing: 1px; }
-        .header-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; margin-bottom: 40px; }
-        .btn-view-site { background: transparent; color: #d4af37; border: 1px solid #d4af37; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 4px; transition: 0.3s; }
-        .btn-view-site:hover { background: #d4af37; color: #121212; }
-        
-        /* Form Styling */
-        .form-section { background: #1c1c1c; border: 1px solid #2a2a2a; padding: 30px; border-radius: 8px; margin-bottom: 40px; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .form-group { display: flex; flex-direction: column; margin-bottom: 15px; }
-        .form-group.full-width { grid-column: span 2; }
-        label { font-size: 0.9rem; color: #aaa; margin-bottom: 8px; font-weight: 500; }
-        input, typeof, textarea { background: #262626; border: 1px solid #3a3a3a; padding: 12px; color: #fff; border-radius: 4px; font-size: 1rem; }
-        input:focus, textarea:focus { border-color: #d4af37; outline: none; }
-        .btn-submit { background: #d4af37; color: #121212; border: none; padding: 14px 30px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-top: 10px; transition: 0.3s; }
-        .btn-submit:hover { background: #fff; }
-        .btn-cancel { background: #333; color: #ccc; border: none; padding: 14px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-top: 10px; margin-left: 10px; display: none; }
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
-        /* Inventory Table Styling */
-        .table-wrapper { background: #1c1c1c; border: 1px solid #2a2a2a; border-radius: 8px; overflow-hidden: true; }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 15px 20px; border-bottom: 1px solid #2a2a2a; }
-        th { background: #161616; color: #d4af37; font-size: 0.9rem; letter-spacing: 0.5px; }
-        tr:hover { background: #222; }
-        .product-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #3a3a3a; }
-        .btn-edit { background: #2a2a2a; color: #fff; border: 1px solid #444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
-        .btn-edit:hover { border-color: #d4af37; color: #d4af37; }
-    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-[#0a0a0a] text-neutral-200 font-sans antialiased min-h-screen relative pb-20">
 
-    <div class="dashboard-container">
-        <div class="header-bar">
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-yellow-900/5 rounded-full filter blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-neutral-800/20 rounded-full filter blur-[100px]"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-8 mb-10 gap-6">
             <div>
-                <h1>BIG STEPH GEMS</h1>
-                <p style="margin: 0; color: #888;">Inventory & Product Upload Studio</p>
+                <h1 class="text-4xl font-serif font-bold text-yellow-500 tracking-widest uppercase mb-2">Big Steph Gems</h1>
+                <p class="text-neutral-500 font-light tracking-wide">Inventory & Product Upload Studio</p>
             </div>
-            <a href="{% url 'home' %}" class="btn-view-site" target="_blank">View Live Storefront →</a>
+            <a href="{% url 'home' %}" target="_blank" class="inline-block border border-yellow-500/50 text-yellow-500 px-6 py-3 uppercase text-xs font-semibold tracking-widest hover:bg-yellow-500 hover:text-black transition duration-300 rounded-sm shadow-[0_0_15px_rgba(234,179,8,0.1)]">
+                View Live Storefront →
+            </a>
         </div>
 
-        <!-- Dynamic Product Management Form -->
-        <div class="form-section">
-            <h2 id="form-title">Upload New Gem Piece</h2>
+        <div class="bg-neutral-900/60 backdrop-blur-md border border-white/5 rounded-xl p-8 mb-12 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+            <h2 id="form-title" class="text-2xl font-serif text-white mb-6 tracking-wide">Upload New Gem Piece</h2>
+            
             <form id="product-form" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <!-- Hidden input field to hold primary key when editing an existing product -->
                 <input type="hidden" name="product_id" id="form-product-id">
                 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="id_name">Product Name</label>
-                        <input type="text" name="name" id="form-name" required placeholder="e.g., Diamond Cuban Link Chain">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="id_name" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Product Name</label>
+                        <input type="text" name="name" id="form-name" required placeholder="e.g., Diamond Cuban Link Chain" 
+                               class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition">
                     </div>
-                    <div class="form-group">
-                        <label for="id_price">Retail Price ($)</label>
-                        <input type="number" name="price" id="form-price" step="0.01" required placeholder="0.00">
+                    <div>
+                        <label for="id_price" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Retail Price (₦)</label>
+                        <input type="number" name="price" id="form-price" step="0.01" required placeholder="50000" 
+                               class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition">
                     </div>
-                    <div class="form-group">
-                        <label for="id_qty">Quantity in Stock</label>
-                        <input type="number" name="quantity_in_stock" id="form-qty" required placeholder="1">
+                    <div>
+                        <label for="id_qty" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Quantity in Stock</label>
+                        <input type="number" name="quantity_in_stock" id="form-qty" required placeholder="1" 
+                               class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition">
                     </div>
-                    <div class="form-group">
-                        <label for="id_handle">Dealer Handle / Target Link</label>
-                        <input type="text" name="dealer_handle" id="form-handle" required placeholder="e.g., @big_steph">
+                    <div>
+                        <label for="id_handle" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Dealer Handle / Target Link</label>
+                        <input type="text" name="dealer_handle" id="form-handle" required placeholder="e.g., @big_steph" 
+                               class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="id_image">Product Image File</label>
-                    <input type="file" name="image" id="form-image">
-                    <span id="image-hint" style="font-size: 0.8rem; color: #777; margin-top: 5px; display: none;">Leave empty to retain current Cloudinary photo asset.</span>
+                <div class="mb-6">
+                    <label for="id_image" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Product Image File</label>
+                    <input type="file" name="image" id="form-image" 
+                           class="w-full bg-neutral-950 text-neutral-400 border border-neutral-800 rounded px-4 py-3 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-neutral-800 file:text-white hover:file:bg-neutral-700 transition cursor-pointer">
+                    <p id="image-hint" class="text-xs text-yellow-600 mt-2 hidden italic">Leave empty to retain current photo asset.</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="id_details">Product Narrative & Styling Details</label>
-                    <textarea name="details" id="form-details" rows="4" required placeholder="Describe the materials, cut, styling options, etc..."></textarea>
+                <div class="mb-8">
+                    <label for="id_details" class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Product Narrative & Styling Details</label>
+                    <textarea name="details" id="form-details" rows="4" required placeholder="Describe the materials, cut, styling options, etc..." 
+                              class="w-full bg-neutral-950 text-white border border-neutral-800 rounded px-4 py-3 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition"></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit" id="btn-submit-text">Publish Item</button>
-                <button type="button" class="btn-cancel" id="btn-clear" onclick="resetForm()">Cancel Edit</button>
+                <div class="flex items-center gap-4">
+                    <button type="submit" id="btn-submit-text" 
+                            class="bg-yellow-500 hover:bg-yellow-400 text-black px-8 py-3 rounded font-bold uppercase tracking-wider transition duration-300 shadow-[0_0_15px_rgba(234,179,8,0.2)]">
+                        Publish Item
+                    </button>
+                    <button type="button" id="btn-clear" onclick="resetForm()" 
+                            class="hidden bg-neutral-800 hover:bg-neutral-700 text-white px-8 py-3 rounded font-semibold uppercase tracking-wider transition duration-300 border border-neutral-700">
+                        Cancel Edit
+                    </button>
+                </div>
             </form>
         </div>
 
-        <!-- Inventory List Table -->
-        <h2>Current Boutique Stock ({{ products|length }})</h2>
-        <div class="table-wrapper">
-            <table>
+        <h2 class="text-2xl font-serif text-white mb-6 tracking-wide">Current Boutique Stock <span class="text-yellow-500 text-lg">({{ products|length }})</span></h2>
+        
+        <div class="bg-neutral-900/60 backdrop-blur-md border border-white/5 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.3)] overflow-x-auto">
+            <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr>
-                        <th>Visual</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Stock Level</th>
-                        <th>Dealer Link Route</th>
-                        <th>Action</th>
+                    <tr class="bg-neutral-950/50">
+                        <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Visual</th>
+                        <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Name</th>
+                        <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Price</th>
+                        <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Stock Level</th>
+                        <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Dealer Link</th>
+                        <th class="py-4 px-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="divide-y divide-white/5">
                     {% for product in products %}
-                    <tr>
-                        <td><img src="{{ product.image.url }}" class="product-img" alt="Gem Thumbnail"></td>
-                        <td style="font-weight: bold;">{{ product.name }}</td>
-                        <td style="color: #d4af37;">${{ product.price }}</td>
-                        <td>{{ product.quantity_in_stock }} units</td>
-                        <td style="color: #aaa; font-family: monospace;">{{ product.dealer_handle }}</td>
-                        <td>
-                            <button class="btn-edit" 
-                                    onclick="populateEditForm('{{ product.pk }}', '{{ product.name|escapejs }}', '{{ product.price }}', '{{ product.quantity_in_stock }}', '{{ product.dealer_handle|escapejs }}', '{{ product.details|escapejs }}')">
+                    <tr class="hover:bg-neutral-800/30 transition duration-200">
+                        <td class="py-4 px-6">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="Thumbnail" class="w-12 h-12 object-cover rounded border border-neutral-700">
+                            {% else %}
+                                <div class="w-12 h-12 bg-neutral-800 rounded border border-neutral-700 flex items-center justify-center text-xs text-neutral-500">N/A</div>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-6 font-medium text-white">{{ product.name }}</td>
+                        <td class="py-4 px-6 text-yellow-500 font-semibold">₦{{ product.price }}</td>
+                        <td class="py-4 px-6 text-neutral-300">{{ product.quantity_in_stock }} units</td>
+                        <td class="py-4 px-6 text-neutral-500 font-mono text-sm">{{ product.dealer_handle }}</td>
+                        <td class="py-4 px-6">
+                            <button onclick="populateEditForm('{{ product.pk }}', '{{ product.name|escapejs }}', '{{ product.price }}', '{{ product.quantity_in_stock }}', '{{ product.dealer_handle|escapejs }}', '{{ product.details|escapejs }}')" 
+                                    class="border border-neutral-600 text-neutral-300 hover:text-yellow-500 hover:border-yellow-500 px-4 py-2 rounded text-xs uppercase tracking-wider transition duration-200">
                                 Edit Piece
                             </button>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="6" style="text-align: center; color: #777; padding: 40px;">No items currently available in the database backend. Use the form above to populate inventory.</td>
+                        <td colspan="6" class="py-12 text-center text-neutral-500 font-light italic">
+                            No items currently available in the database. Use the form above to populate your inventory.
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -128,16 +144,21 @@
         </div>
     </div>
 
-    <!-- JavaScript Controller to handle form states dynamically -->
     <script>
         function populateEditForm(id, name, price, qty, handle, details) {
-            // Update titles and buttons to clarify the action state
             document.getElementById('form-title').innerText = "Modify Jewelry Details: " + name;
             document.getElementById('btn-submit-text').innerText = "Update Product";
-            document.getElementById('btn-clear').style.display = "inline-block";
-            document.getElementById('image-hint').style.display = "inline";
+            
+            // Tailwind classes to show the button
+            const clearBtn = document.getElementById('btn-clear');
+            clearBtn.classList.remove('hidden');
+            clearBtn.classList.add('inline-block');
+            
+            // Tailwind classes to show the hint
+            const hint = document.getElementById('image-hint');
+            hint.classList.remove('hidden');
+            hint.classList.add('block');
 
-            // Push model metrics straight into form targets
             document.getElementById('form-product-id').value = id;
             document.getElementById('form-name').value = name;
             document.getElementById('form-price').value = price;
@@ -145,18 +166,17 @@
             document.getElementById('form-handle').value = handle;
             document.getElementById('form-details').value = details;
 
-            // Smooth scroll up to form view interface boundary
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function resetForm() {
-            // Reset text contextual rules back to standard default state
             document.getElementById('form-title').innerText = "Upload New Gem Piece";
             document.getElementById('btn-submit-text').innerText = "Publish Item";
-            document.getElementById('btn-clear').style.display = "none";
-            document.getElementById('image-hint').style.display = "none";
+            
+            // Tailwind classes to hide elements again
+            document.getElementById('btn-clear').classList.add('hidden');
+            document.getElementById('image-hint').classList.add('hidden');
 
-            // Purge internal tracking data variables
             document.getElementById('product-form').reset();
             document.getElementById('form-product-id').value = "";
         }
